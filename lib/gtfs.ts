@@ -134,7 +134,7 @@ export async function fetchDirectDestinationsFromStation(
   const filteredTripIds = trips.map((trip) => trip.trip_id);
   const routeIds = [...new Set(trips.map((trip) => trip.route_id))];
 
-  const [{ data: routesData, error: routesError }, { data: allStopTimesData, error: allStopTimesError }] =
+  const [{ data: routes, error: routesError }, { data: allStopTimes, error: allStopTimesError }] =
     await Promise.all([
       supabase
         .from("routes")
@@ -151,12 +151,12 @@ export async function fetchDirectDestinationsFromStation(
   if (routesError) throw routesError;
   if (allStopTimesError) throw allStopTimesError;
 
-  const routeById = new Map((routesData as TripRoute[]).map((route) => [route.route_id, route]));
+  const routeById = new Map((routes as TripRoute[]).map((route) => [route.route_id, route]));
   const tripById = new Map(trips.map((trip) => [trip.trip_id, trip]));
   const startByTrip = new Map(startRows.map((row) => [row.trip_id, row]));
 
   const groupedStops = new Map<string, StopTimeRow[]>();
-  for (const stop of allStopTimesData as StopTimeRow[]) {
+  for (const stop of allStopTimes as StopTimeRow[]) {
     const existing = groupedStops.get(stop.trip_id);
     if (existing) existing.push(stop);
     else groupedStops.set(stop.trip_id, [stop]);

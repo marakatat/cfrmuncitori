@@ -117,7 +117,10 @@ export default function HomePage() {
 
     try {
       setSaving(true);
-      const routeId = await saveRoute(`Route ${new Date().toLocaleString()}`, itinerary);
+      const routeId = await saveRoute(
+        `Route ${new Date().toISOString().replace("T", " ").slice(0, 16)}`,
+        itinerary
+      );
       window.open(`/custom_route/${routeId}`, "_blank", "noopener,noreferrer");
     } catch (error) {
       console.error(error);
