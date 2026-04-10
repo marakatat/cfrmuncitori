@@ -47,14 +47,6 @@ export function dayField(dateISO: string):
   const [year, month, dayOfMonth] = dateISO.split("-").map(Number);
   const date = new Date(Date.UTC(year, month - 1, dayOfMonth));
   const day = date.getUTCDay();
-  return ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][
-    day
-  ] as
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday"
-    | "sunday";
+  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
+  return dayNames[day];
 }

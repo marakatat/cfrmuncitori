@@ -135,7 +135,10 @@ async function tryResolveTripForSegment(
     grouped.set(row.trip_id, item);
   }
 
-  const ordered = [...grouped.entries()].filter(([, value]) => value.start !== undefined && value.end !== undefined && value.end > value.start);
+  const hasValidStopOrder = (value: { start?: number; end?: number }) =>
+    value.start !== undefined && value.end !== undefined && value.end > value.start;
+
+  const ordered = [...grouped.entries()].filter(([, value]) => hasValidStopOrder(value));
   if (ordered.length === 0) return null;
 
   const tripIds = ordered.map(([tripId]) => tripId);

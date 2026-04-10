@@ -25,14 +25,14 @@ type Props = {
 
 const stationIcon = L.divIcon({
   className: "",
-  html: '<div style="width:10px;height:10px;border-radius:999px;background:#0f172a;border:1px solid #fff;"></div>',
+  html: '<div class="station-dot"></div>',
   iconSize: [10, 10],
   iconAnchor: [5, 5],
 });
 
 const trainIcon = L.divIcon({
   className: "",
-  html: '<div style="font-size:22px;opacity:0.55;line-height:1">🚆</div>',
+  html: '<div class="train-icon">🚆</div>',
   iconSize: [24, 24],
   iconAnchor: [12, 12],
 });

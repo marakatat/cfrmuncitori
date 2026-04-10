@@ -117,8 +117,13 @@ export default function HomePage() {
 
     try {
       setSaving(true);
+      const first = itinerary[0];
+      const last = itinerary[itinerary.length - 1];
       const routeId = await saveRoute(
-        `Route ${new Date().toISOString().replace("T", " ").slice(0, 16)}`,
+        `${first.startStationName} → ${last.endStationName} (${new Date()
+          .toISOString()
+          .replace("T", " ")
+          .slice(0, 16)})`,
         itinerary
       );
       window.open(`/custom_route/${routeId}`, "_blank", "noopener,noreferrer");
